@@ -175,7 +175,7 @@ pre code {
 <h1>SheetsToHtml</h1>
 <div id="scenario" class="section level2">
 <h2>Scenario</h2>
-<p>You have have spent some time formatting a Google Sheets table and it looks just as you want it to look. However, what if you would like to embed it in a Markdown document or an HTML page? You could of course take a screenshot and embed the image in either type of document but that’s not a very neat solution. What if you could convert the Sheets table to HTML in such a way that all your formatting is preserved. That includes colours, merged cells, bold, italics, font size, etc. I wrote this GAS code to do just that. It takes an input range and then generates output as an HTML table that preserves the formatting as much as possible. As the example code shows, you can use it to:</p>
+<p>You have have spent some time formatting a Google Sheets table and it looks just as you want it to look. However, what if you would like to embed it in a Markdown document or an HTML page? You could of course take a screenshot and embed the image in either type of document but that’s not a very neat solution. What if you could convert the Sheets table to HTML in such a way that all your formatting is preserved? That includes colours, merged cells, bold, italics, font size, etc. I wrote this GAS code to do just that. It takes an input range and then generates output as an HTML table that preserves the formatting as much as possible. As the example code shows, you can use it to:</p>
 <ol style="list-style-type: decimal">
 <li>Generate a full HTML document.</li>
 <li>Just the table HTML.</li>
@@ -198,11 +198,44 @@ pre code {
 <li>You can download these files and open them in your browser to see how they are rendered as webpages. Surprisingly, Chrome even renders the version that contains the table HTML only too. I’ve not checked with other browsers.</li>
 </ul>
 </div>
+<div id="the-functions-that-use-the-classes-in-sheetstohtml-to-generate-table-html" class="section level2">
+<h2>The functions that use the classes in <em>SheetsToHtml</em> to generate table HTML</h2>
+<p>You can find these function definitions in the <em>Code.gs</em> script file in the spreadsheet linked above.</p>
+<pre class="{js}"><code>/**
+ * Test function for class HtmlGenerator to generate a complete HTML document containing the table from the sheet named &quot;Sales&quot;.
+ * Creates an HTML file in your Google Drive when executed.
+ * 
+ * @return {void}
+ */
+function fullPageHtml() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(&quot;Sales&quot;);
+  const rng = sheet.getDataRange();
+  const htmlGen = new HtmlGenerator(rng);
+  const pageHtml = htmlGen.FullPageHtml;
+  const fileName = &quot;sales_full.html&quot;;
+  newFile = DriveApp.createFile(fileName, pageHtml);
+}
+
+/**
+ * Test function for class HtmlGenerator to generate the HTML code for the table only from the Sheet named &quot;Sales&quot;.
+ * Creates an HTML file in your Google Drive when executed.
+ * 
+ * @return {void}
+ */
+function tableHtmlOnly() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(&quot;Sales&quot;);
+  const rng = sheet.getDataRange();
+  const htmlGen = new HtmlGenerator(rng);
+  const tableHtml = htmlGen.TableHtml;
+  const fileName = &quot;sales_table.html&quot;;
+  newFile = DriveApp.createFile(fileName, tableHtml);
+}</code></pre>
+</div>
 <div id="spreadsheet-data-source" class="section level2">
 <h2>Spreadsheet data source</h2>
 <ul>
 <li>The nicely formatted spreadsheet that I have used in this example was taken from a <a href="https://courses.benlcollins.com/courses/enrolled/222121">course given by Ben Collins - Advanced Formulas 30-Day Challenge</a>. The formatting used to generate this output is from <a href="https://courses.benlcollins.com/courses/222121/lectures/3583534">DAY 5: ADVANCED FORMATTING</a>.</li>
-<li>If you are interested in learning more about Google Sheets, this course is worth taking and is free.</li>
+<li>If you are interested in learning more about Google Sheets, this course is well worth taking and is free.</li>
 </ul>
 </div>
 <div id="uses-of-the-output" class="section level2">
@@ -231,12 +264,20 @@ pre code {
 <li>Some Excel formats may be lost but it works for most of what I have tried</li>
 </ul>
 </div>
-<div id="limitations" class="section level2">
-<h2>Limitations</h2>
+<div id="highlights" class="section level2">
+<h2>Highlights</h2>
 <ul>
 <li>This code works for me and I am especially happy with how it deals with things like embedded emojis and merged cells.</li>
 <li>The generated HTML table may not be an exact simulacrum of its Sheets representation but it is close enough for my purposes.</li>
+<li>I can drop the table HTML into Markdown documents and it preserves my formatting. Doing this in HTML is not trivial and adding formatting -except for cell content alignment- is well-nigh impossible with Markdown tables.</li>
+</ul>
+</div>
+<div id="limitations" class="section level2">
+<h2>Limitations</h2>
+<ul>
 <li>There may be types of formatting that this code ignores or transforms incorrectly. Please let me know if you encounter these.</li>
+<li>The formats are applied to individual table cells using <strong>internal CSS styles</strong> so the HTML is quite bloated. That said, it would be difficult to create style classes that could be applied to cells to individualise their styles. See <a href="https://www.hostinger.com/tutorials/difference-between-inline-external-and-internal-css">here</a> for a quick guide to the three ways of applying styles using CSS.</li>
+<li>I have not used an external style sheet but one could easily be created and referenced in the page HTML output.</li>
 </ul>
 </div>
 <div id="closing-notes" class="section level2">

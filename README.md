@@ -54,11 +54,17 @@ If any of this is of interest to you or if you are simply just interested in see
 - To make this work with Excel, you can import the Excel sheet into Google Sheets, convert it to a Google Sheet, and then run the HTML table-generating code on that. 
 - Some Excel formats may be lost but it works for most of what I have tried
 
-## Limitations
+## Highlights
 
 - This code works for me and I am especially happy with how it deals with things like embedded emojis and merged cells.
 - The generated HTML table may not be an exact simulacrum of its Sheets representation but it is close enough for my purposes.
+- I can drop the table HTML into Markdown documents and it preserves my formatting. Doing this in HTML is not trivial and adding formatting -except for cell content alignment- is well-nigh impossible.
+
+## Limitations
+
 - There may be types of formatting that this code ignores or transforms incorrectly. Please let me know if you encounter these.
+- The formats are applied to individual table cells using __internal CSS styles__ so the HTML is quite bloated. That said, it would be difficult to create style classes that could be applied to cells to individualise their styles
+- I have not used an external style sheet but one could easily be created and referenced in the page HTML output.
 
 ## Closing notes
 

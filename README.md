@@ -4,7 +4,7 @@
 
 You have have spent some time formatting a Google Sheets table and it looks just as you want it to look.
 However, what if you would like to embed it in a Markdown document or an HTML page? You could of course take a screenshot and embed the image in either type of document but that's not a very neat solution.
-What if you could convert the Sheets table to HTML in such a way that all your formatting is preserved. That includes colours, merged cells, bold, italics, font size, etc. I wrote this GAS code to do just that. It takes an input range and then generates output as an HTML table that preserves the formatting as much as possible. As the example code shows, you can use it to:
+What if you could convert the Sheets table to HTML in such a way that all your formatting is preserved? That includes colours, merged cells, bold, italics, font size, etc. I wrote this GAS code to do just that. It takes an input range and then generates output as an HTML table that preserves the formatting as much as possible. As the example code shows, you can use it to:
 
 1. Generate a full HTML document.
 2. Just the table HTML.
@@ -27,6 +27,42 @@ If any of this is of interest to you or if you are simply just interested in see
 - Because the two example functions in _Code.gs_ write files to your Google Drive, you need to authorise them in the usual way.
 - Once you have executed each of those functions, two new files should appear in your Google Drive called _sales_table.html_ and _sales_full.html_.
 - You can download these files and open them in your browser to see how they are rendered as webpages. Surprisingly, Chrome even renders the version that contains the table HTML only too. I've not checked with other browsers.
+
+## The functions that use the classes in _SheetsToHtml_ to generate table HTML
+
+You can find these function definitions in the _Code.gs_ script file in the spreadsheet linked above.
+
+```{js}
+/**
+ * Test function for class HtmlGenerator to generate a complete HTML document containing the table from the sheet named "Sales".
+ * Creates an HTML file in your Google Drive when executed.
+ * 
+ * @return {void}
+ */
+function fullPageHtml() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sales");
+  const rng = sheet.getDataRange();
+  const htmlGen = new HtmlGenerator(rng);
+  const pageHtml = htmlGen.FullPageHtml;
+  const fileName = "sales_full.html";
+  newFile = DriveApp.createFile(fileName, pageHtml);
+}
+
+/**
+ * Test function for class HtmlGenerator to generate the HTML code for the table only from the Sheet named "Sales".
+ * Creates an HTML file in your Google Drive when executed.
+ * 
+ * @return {void}
+ */
+function tableHtmlOnly() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sales");
+  const rng = sheet.getDataRange();
+  const htmlGen = new HtmlGenerator(rng);
+  const tableHtml = htmlGen.TableHtml;
+  const fileName = "sales_table.html";
+  newFile = DriveApp.createFile(fileName, tableHtml);
+}
+```
 
 ## Spreadsheet data source
 
@@ -63,7 +99,7 @@ If any of this is of interest to you or if you are simply just interested in see
 ## Limitations
 
 - There may be types of formatting that this code ignores or transforms incorrectly. Please let me know if you encounter these.
-- The formats are applied to individual table cells using __internal CSS styles__ so the HTML is quite bloated. That said, it would be difficult to create style classes that could be applied to cells to individualise their styles
+- The formats are applied to individual table cells using __internal CSS styles__ so the HTML is quite bloated. That said, it would be difficult to create style classes that could be applied to cells to individualise their styles. See [here](https://www.hostinger.com/tutorials/difference-between-inline-external-and-internal-css) for a quick guide to the three ways of applying styles using CSS.
 - I have not used an external style sheet but one could easily be created and referenced in the page HTML output.
 
 ## Closing notes

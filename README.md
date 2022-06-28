@@ -30,7 +30,7 @@ If any of this is of interest to you or if you are simply just interested in see
 
 ## Spreadsheet data source
 
-- The nicely formatted spreadsheet that I have used in this example was taken from a [course given by Ben Collins](Advanced Formulas 30-Day Challenge). The formatting used to generate this output is from [DAY 5: ADVANCED FORMATTING](https://courses.benlcollins.com/courses/222121/lectures/3583534).
+- The nicely formatted spreadsheet that I have used in this example was taken from a [course given by Ben Collins - Advanced Formulas 30-Day Challenge](https://courses.benlcollins.com/courses/enrolled/222121). The formatting used to generate this output is from [DAY 5: ADVANCED FORMATTING](https://courses.benlcollins.com/courses/222121/lectures/3583534).
 - If you are interested in learning more about Google Sheets, this course is worth taking and is free.
 
 ## Uses of the output

@@ -58,7 +58,7 @@ If any of this is of interest to you or if you are simply just interested in see
 
 - This code works for me and I am especially happy with how it deals with things like embedded emojis and merged cells.
 - The generated HTML table may not be an exact simulacrum of its Sheets representation but it is close enough for my purposes.
-- I can drop the table HTML into Markdown documents and it preserves my formatting. Doing this in HTML is not trivial and adding formatting -except for cell content alignment- is well-nigh impossible.
+- I can drop the table HTML into Markdown documents and it preserves my formatting. Doing this in HTML is not trivial and adding formatting -except for cell content alignment- is well-nigh impossible with Markdown tables.
 
 ## Limitations
 

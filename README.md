@@ -98,6 +98,7 @@ function tableHtmlOnly() {
 
 ## Limitations
 
+- I haven't yet found a way of incorporating sparklines. I would like to do this but have not yet found a feasible way of implementing this.
 - There may be types of formatting that this code ignores or transforms incorrectly. Please let me know if you encounter these.
 - The formats are applied to individual table cells using __internal CSS styles__ so the HTML is quite bloated. That said, it would be difficult to create style classes that could be applied to cells to individualise their styles. See [here](https://www.hostinger.com/tutorials/difference-between-inline-external-and-internal-css) for a quick guide to the three ways of applying styles using CSS.
 - I have not used an external style sheet but one could easily be created and referenced in the page HTML output.
